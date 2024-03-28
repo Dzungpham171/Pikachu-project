@@ -45,9 +45,9 @@ using namespace std;
 struct Controller {
 	Controller() {};
 	~Controller() {};
-	static HWND consoleWindow;    //Con trỏ xử lí cửa sổ console
-	static HANDLE consoleOutput;  //Con trỏ xử lí output console
-	static void setUpConsole();               //Thiết lập cửa sổ console
+	static HWND consoleWindow;    //Handle the console window
+	static HANDLE consoleOutput;  //Handle the console output
+	static void setUpConsole();               //Set up the console window.
 	static void gotoXY(int, int);			  //Di chuyển con trỏ đến vị trí x,y
 	static void setAndCenterWindow();         //Căn giữa và thiết lập độ phân giải màn hình console
 	static void setConsoleColor(int, int);    //Thiết lập màu chữ và và màu nền
