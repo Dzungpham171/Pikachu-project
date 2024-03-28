@@ -18,23 +18,23 @@ using namespace std;
 
 struct Menu
 {
-	static bool exitGame;									//Cờ thoát game
-	static int current_option;								//Lựa chọn hiện tại
-	const static string options[8];							//Tên các lựa chọn
-	static void mainScreen();								//Màn hình chính
-	static void mainMenu();									//Menu
-	static void playMenu();									//Menu play
-	static void leaderBoard();								//Màn hình load file leaderboard
-	static void helpScreen();								//Màn hình hướng dẫn
-	static void exitScreen();								//Màn hình thoát
-	static void playEasy();									//Chế độ easy
-	static void playMedium();								//Chế độ medium
-	static void printLogo();								//In ra logo
-	static void goBack() {}									//Trở về menu
-	static void printOptionsBoard();						//In ra các bảng lựa chọn
-	static void printAnimation();							//In hiệu ứng mở đầu
-	static void printRectangle(int, int, int, int);			//Vẽ hình chữ nhật
-	static void changeOption(bool, bool);					//Thay đổi lựa chọn
+	static bool exitGame;									// exit game flag
+	static int current_option;								// current option (0-7)
+	const static string options[8];								// array of options' name
+	static void mainScreen();								// main screen
+	static void mainMenu();									// Menu
+	static void playMenu();									// Menu play
+	static void leaderBoard();								// leaderboard screen
+	static void helpScreen();								// instruction screen
+	static void exitScreen();								// exit screen
+	static void playEasy();									// play easy game
+	static void playMedium();								// play medium game
+	static void printLogo();								// print logo
+	static void goBack() {}									// an empty function to keep the order of unordered_map options
+	static void printOptionsBoard();							// print options board
+	static void printAnimation();								// starting animation effect 
+	static void printRectangle(int, int, int, int);						// print rectangle
+	static void changeOption(bool, bool);							// change option
 };
 
 struct Player {
@@ -43,10 +43,10 @@ struct Player {
 	string className;
 	int score;
 	string mode;
-};
+}; //to save players
 
 int Menu::current_option;
-const string Menu::options[8] = { "Play", "LeaderBoard", "Help", "Exit", "Easy", "  Medium   ", "Back", "Exit"};
+const string Menu::options[8] = { "Play", "LeaderBoard", "Help", "Exit", "Easy", "  Medium   ", "Back", "Exit"}; // 8 options in the game
 
 void Menu::mainScreen()
 {
@@ -93,7 +93,7 @@ void Menu::mainScreen()
 	Controller::clearConsole();
 }
 
-void Menu::printLogo()
+void Menu::printLogo() //print logo, title, students' name and ID
 {
 	unsigned char logo[] = R"(
 
@@ -104,15 +104,15 @@ void Menu::printLogo()
 		  \ \  \___|\ \  \ \  \\ \  \ \  \ \  \ \  \____\ \  \ \  \ \  \\\  \ 
 		   \ \__\    \ \__\ \__\\ \__\ \__\ \__\ \_______\ \__\ \__\ \_______\
 		    \|__|     \|__|\|__| \|__|\|__|\|__|\|_______|\|__|\|__|\|_______|                                                                   
-	)";
-	cout << logo;
-	Controller::gotoXY(38, 0);
-	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
-	cout << "Tran Tung Lam - Le Minh";
-	Controller::gotoXY(40, 1);
-	cout << "21127337 - 21127165";
-	Controller::gotoXY(38, 8);
-	Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
+	)"; 
+	cout << logo;	//Define and print the logo
+	Controller::gotoXY(38, 0); //moving cursor to (38,0)
+	Controller::setConsoleColor(BRIGHT_WHITE, BLUE); // setting color
+	cout << " Ngoc Dung - Anh Kiet "; // student's name
+	Controller::gotoXY(40, 1); //moving cursor to (40,1)
+	cout << "23127003 - 23127005"; //student's ID
+	Controller::gotoXY(38, 8); //moving cursor to (38,8)
+	Controller::setConsoleColor(BRIGHT_WHITE, GREEN); //setting color
 	cout << R"(
   _____  _  _  ___   __  __    _  _____  ___  _  _  ___  _  _   ___    ___    _    __  __  ___ 
  |_   _|| || || __| |  \/  |  /_\|_   _|/ __|| || ||_ _|| \| | / __|  / __|  /_\  |  \/  || __|
@@ -123,46 +123,45 @@ void Menu::printLogo()
 
 void Menu::printOptionsBoard()
 {
-	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
-	int left = 44; //48
+	Controller::setConsoleColor(BRIGHT_WHITE, BLACK); // Set console color
+	int left = 44;
 	int top = 20;
-	Controller::gotoXY(left, top);
-	putchar(201);
+	Controller::gotoXY(left, top); // Move cursor to specified position
+	putchar(201); // Print top left corner of the frame (╔)
 	for (int i = 1; i < 12; i++)
 	{
-		putchar(205);
+		putchar(205); // Print horizontal line character (═)
 	}
-	putchar(187);
+	putchar(187); // Print top right corner of the frame (»)
 
-
+	// Print the vertical lines and T intersections for the sides of the frame
 	for (int i = 1; i < 8; i++)
 	{
 		Controller::gotoXY(left, top + i);
 		if (i % 2 != 0)
 		{
-			putchar(186);
+			putchar(186); // Print vertical line character (║)
 			Controller::gotoXY(left + 12, top + i);
-			putchar(186);
+			putchar(186); // Print vertical line character (║)
 		}
 		else
 		{
-			putchar(199);
+			putchar(199); // Print T intersection character (╣)
 			for (int i = 1; i < 12; i++)
 			{
-				putchar(196);
+				putchar(196); // Print horizontal line character (─)
 			}
-			putchar(182);
+			putchar(182); // Print T intersection character (╠)
 		}
 	}
-	Controller::gotoXY(left, top + 8);
-	putchar(200);
+	Controller::gotoXY(left, top + 8); // Move cursor to bottom left position
+	putchar(200); // Print bottom left corner of the frame (╚)
 	for (int i = 1; i < 12; i++)
 	{
-		putchar(205);
+		putchar(205); // Print horizontal line character (═)
 	}
-	putchar(188);
+	putchar(188); // Print bottom right corner of the frame (╝)
 }
-
 void Menu::printAnimation()
 {
 	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
