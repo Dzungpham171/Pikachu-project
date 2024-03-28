@@ -162,90 +162,102 @@ void Menu::printOptionsBoard()
 	}
 	putchar(188); // Print bottom right corner of the frame (╝)
 }
-void Menu::printAnimation()
+
+void Menu::printAnimation() //Capcut animation :)))
 {
-	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
-	Controller::clearConsole();
+	Controller::setConsoleColor(BRIGHT_WHITE, BLACK); //Set console color
+	Controller::clearConsole(); // Clear the console screen
+	// Array of random symbol positions
 	char symbolpos[] = { 5,0,19,0,33,0,47,0,61,0,75,0,89,0,0,103,5,13,19,
 							   13,33,13,47,13,61,13,75,13,89,13,13,103,13,18,26,18,40,18,
 							   54,18,68,18,82,18,18,96,5,24,19,24,33,24,47,24,61,24,75,24,
 							   89,24,24,103,12,30,26,30,40,30,54,30,68,30,82,30,96,30 };
-	int n = (sizeof(symbolpos) / sizeof(symbolpos[0])) / 2;
-	bool turn = 0;
-	unsigned char symbol[] = { 4,15 };
+	int n = (sizeof(symbolpos) / sizeof(symbolpos[0])) / 2; // Calculate the number of symbol positions
+	bool turn = 0; // Flag to determine which symbol to print
+	unsigned char symbol[] = { 4,15 }; // ♦ ☼
 
 	int color[] = { LIGHT_AQUA, AQUA, LIGHT_BLUE, BLUE, LIGHT_PURPLE, PURPLE };
-	int colorcount = 0;
-	int loop = 10;
-	while (loop--)
+	int colorcount = 0; // Counter for colors
+	int loop = 10; // Number of animation loops
+	while (loop--) 
 	{
-		for (int i = 0; i < n; i += 2)
+		for (int i = 0; i < n; i += 2) // Print symbols at even positions
 		{
-			Controller::setConsoleColor(BRIGHT_WHITE, getRandomInt(0, 15));
-			Controller::gotoXY(symbolpos[i * 2], symbolpos[i * 2 + 1]);
-			putchar(symbol[turn]);
+			Controller::setConsoleColor(BRIGHT_WHITE, getRandomInt(0, 15)); // Set random console color
+			Controller::gotoXY(symbolpos[i * 2], symbolpos[i * 2 + 1]); // Move cursor to symbol position
+			putchar(symbol[turn]); //print ♦
 		}
-		for (int i = 1; i < n; i += 2)
+		for (int i = 1; i < n; i += 2)  // Print symbols at odd positions
 		{
-			Controller::setConsoleColor(BRIGHT_WHITE, getRandomInt(0, 15));
-			Controller::gotoXY(symbolpos[i * 2], symbolpos[i * 2 + 1]);
-			putchar(symbol[!turn]);
+			Controller::setConsoleColor(BRIGHT_WHITE, getRandomInt(0, 15)); // Set random console color
+			Controller::gotoXY(symbolpos[i * 2], symbolpos[i * 2 + 1]); // Move cursor to symbol position
+			putchar(symbol[!turn]); //print ☼
 		}
-		Controller::gotoXY(0, 0);
-		printLogo();
-		colorcount++;
-		turn = !turn;
-		Sleep(250);
+		Controller::gotoXY(0, 0); // Move cursor to top-left corner
+		printLogo(); 
+		colorcount++; // Increment color counter
+		turn = !turn; // turn flag
+		Sleep(250); // Sleep for 250 milliseconds
 	}
 }
 
-void Menu::changeOption(bool direction, bool flag) //0: lên, 1: xuống
+void Menu::changeOption(bool direction, bool flag) // direction: 0 is up, 1 is down, this is not a completed function; flag = 1 will change the interface
 {
-	int top = 21;
-	if ((direction == 0 && (current_option == 4 || current_option == 0))
-		|| (direction == 1 && (current_option == 3 || current_option == 7)))
+	int top = 21; // Vertical position offset for displaying options
+
+	// Check if the current option is at the top or bottom and the direction is invalid
+	if ((direction == 0 && (current_option == 4 || current_option == 0)) // "easy" or "play option can't go up
+		|| (direction == 1 && (current_option == 3 || current_option == 7))) //"exit" option can't go down
 	{
-		Controller::playSound(ERROR_SOUND);
-		return;
+		Controller::playSound(ERROR_SOUND); // Play an error sound
+		return; 
 	}
-	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(50 - (int)options[current_option].length() / 2, top + current_option % 4 * 2);
-	cout << options[current_option];
+
+	Controller::setConsoleColor(BRIGHT_WHITE, BLACK); // Set console color
+	Controller::gotoXY(50 - (int)options[current_option].length() / 2, top + current_option % 4 * 2); // Move cursor to the current option
+	cout << options[current_option]; // Output the current option
+
 	if (flag)
 	{
+		// Clear the left and right indicator spaces if flag is true
 		Controller::gotoXY(40, top + current_option % 4 * 2);
-		putchar(32);
+		putchar(32); // space character
 		Controller::gotoXY(60, top + current_option % 4 * 2);
-		putchar(32);
+		putchar(32); // space character
 	}
-	(direction == 1) ? current_option++ : current_option--;
+
+	(direction == 1) ? current_option++ : current_option--; // Increment or decrement the current option
+
 	if (flag)
 	{
-		Controller::playSound(MOVE_SOUND);
-		Controller::setConsoleColor(BRIGHT_WHITE, RED);
+		Controller::playSound(MOVE_SOUND); // Play a move sound
+		Controller::setConsoleColor(BRIGHT_WHITE, RED); // Current option is red and have » « point to
 		Controller::gotoXY(40, top + current_option % 4 * 2);
-		putchar(175);
+		putchar(175); // Output »
 		Controller::gotoXY(50 - (int)options[current_option].length() / 2, top + current_option % 4 * 2);
-		cout << options[current_option];
+		cout << options[current_option]; // Output the updated option text
 		Controller::gotoXY(60, top + current_option % 4 * 2);
-		putchar(174);
+		putchar(174); // Output «
 	}
 }
 
 void Menu::mainMenu()
 {
-	Controller::setConsoleColor(BRIGHT_WHITE, RED);
-	Controller::clearConsole();
+	Controller::setConsoleColor(BRIGHT_WHITE, RED); // Set console color
+	Controller::clearConsole(); // clear console screen
+	//print logo and options board
 	printLogo();
 	printOptionsBoard();
+	// move current_option to 0 ("play") and print option 0-3 ("play" - "exit)
 	current_option = 3;
 	changeOption(0, 0);
 	changeOption(0, 0);
-	changeOption(0, 1);
+	changeOption(0, 1); 
 }
 
 void Menu::playMenu()
 {
+	// move current_option to 4 ("easy") and print option 4-7 ("easy" - "exit")
 	current_option = 7;
 	changeOption(0, 0);
 	changeOption(0, 0);
@@ -254,36 +266,38 @@ void Menu::playMenu()
 
 void Menu::helpScreen()
 {
-	Controller::showCursor(false);
-	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
-	Controller::clearConsole();
+	Controller::showCursor(false); //hide the console cursor
+	Controller::setConsoleColor(BRIGHT_WHITE, BLACK); //set color
+	Controller::clearConsole(); // clear console
+	// set value of position of the rectangle, 1 vertical and 3 horizontal lines to categorize the in4
 	int left = 5, top = 2, width = 85, height = 23;
 	int line1 = 6, line2 = 19, line3 = 20, line4 = 15;
-	printRectangle(left, top, width, height);
+	printRectangle(left, top, width, height); //print rectangle
+	// print 3 horizontal lines
 	Controller::gotoXY(left + 1, line1);
 	for (int i = 0; i < width; i++)
 	{
-		putchar(196);
+		putchar(196); // "─"
 	}
 	Controller::gotoXY(left + 1, line2);
 	for (int i = 0; i < width; i++)
 	{
-		putchar(196);
+		putchar(196); // "─"
 	}
 	Controller::gotoXY(left + 1, line4);
 	for (int i = 0; i < width; i++)
 	{
-		putchar(196);
+		putchar(196); // "─"
 	}
-	for (int i = 1; i < height; i++)
+	for (int i = 1; i < height; i++) // print vertical line
 	{
 		Controller::gotoXY(line3, top + i);
 		putchar(179);
 	}
 	Controller::gotoXY(line3, line1);
-	putchar(197);
+	putchar(197); // "┼"
 	Controller::gotoXY(line3, line2);
-	putchar(197);
+	putchar(197); // "┼"
 
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(left + 3, top + 2);
