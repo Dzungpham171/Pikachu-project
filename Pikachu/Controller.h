@@ -48,18 +48,18 @@ struct Controller {
 	static HWND consoleWindow;    //Handle the console window
 	static HANDLE consoleOutput;  //Handle the console output
 	static void setUpConsole();               //Set up the console window.
-	static void gotoXY(int, int);			  //Di chuyển con trỏ đến vị trí x,y
-	static void setAndCenterWindow();         //Căn giữa và thiết lập độ phân giải màn hình console
-	static void setConsoleColor(int, int);    //Thiết lập màu chữ và và màu nền
-	static void hideScrollBars();             //Ẩn thanh cuộn
-	static void setConsoleTitle();            //Cài đặt tiêu đề console
-	static void disableMaximize();            //Vô hiệu hóa phóng to màn hình
-	static void showCursor(bool);             //Ẩn hoặc hiện con trỏ
-	static void setFontInfo();                //Cài đặt font chữ
-	static void clearConsole();               //Xóa màn hình console
-	static void disableMouseInput();          //Vô hiệu hóa chuột trong console
-	static int getConsoleInput();             //Lấy lệnh từ bàn phím
-	static void playSound(int);               //Phát âm thanh
+	static void gotoXY(int, int);			  //Move the cursor to the specified position (x, y) on the console
+	static void setAndCenterWindow();         //Centers and sets the console window's resolution.
+	static void setConsoleColor(int, int);    //Sets the console's text and background colors.
+	static void hideScrollBars();             //Hide the console's scroll bars.
+	static void setConsoleTitle();            //Set the console window's title.
+	static void disableMaximize();            //Disable maximizing the console window
+	static void showCursor(bool);             //Show or hide the console cursor
+	static void setFontInfo();                //Set the console's font information.
+	static void clearConsole();               //Clear the console screen.
+	static void disableMouseInput();          //Disable mouse
+	static int getConsoleInput();             //Get input from keyboard
+	static void playSound(int);               //Play sound based on the provided parameter.
 }; 
 
 int getRandomInt(int begin, int end);         //Hàm lấy số nguyên ngẫu nhiên
