@@ -108,9 +108,9 @@ void Menu::printLogo() //print logo, title, students' name and ID
 	cout << logo;	//Define and print the logo
 	Controller::gotoXY(38, 0); //moving cursor to (38,0)
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE); // setting color
-	cout << " Ngoc Dung - Anh Kiet "; // student's name
+	cout << "Pham Ngoc Dung - Nguyen Anh Kiet "; // student's name
 	Controller::gotoXY(40, 1); //moving cursor to (40,1)
-	cout << "23127003 - 23127005"; //student's ID
+	cout << "    23127003 - 23127005"; //student's ID
 	Controller::gotoXY(38, 8); //moving cursor to (38,8)
 	Controller::setConsoleColor(BRIGHT_WHITE, GREEN); //setting color
 	cout << R"(
@@ -132,7 +132,7 @@ void Menu::printOptionsBoard()
 	{
 		putchar(205); // Print horizontal line character (═)
 	}
-	putchar(187); // Print top right corner of the frame (»)
+	putchar(187); // Print top right corner of the frame (╗)
 
 	// Print the vertical lines and T intersections for the sides of the frame
 	for (int i = 1; i < 8; i++)
@@ -298,25 +298,24 @@ void Menu::helpScreen()
 	putchar(197); // "┼"
 	Controller::gotoXY(line3, line2);
 	putchar(197); // "┼"
-
+	// Moves instruction
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(left + 3, top + 2);
 	cout << "Moves:";
 	Controller::gotoXY(left + 20, top + 1);
-	putchar(249); cout << "Up:    W, up arrow";
+	putchar(249); cout << "Up:    W, up arrow"; // 249: character ∙
 	Controller::gotoXY(left + 52, top + 1);
 	putchar(249); cout << "Down:  S, down arrow";
 	Controller::gotoXY(left + 20, top + 3);
 	putchar(249); cout << "Left:  A, left arrow";
 	Controller::gotoXY(left + 52, top + 3);
 	putchar(249); cout << "Right: D, right arrow";
-
-
+	// Rules instruction 	
 	Controller::gotoXY(left + 3, top + 8);
 	cout << "Rules:";
 	Controller::gotoXY(left + 17, top + 5);
 	int left1 = left + 17;
-	putchar(249); cout << " The Matching Game (commonly known as the Pikachu Puzzle Game)";
+	putchar(249); cout << " The Matching Game (commonly known as the Pikachu Puzzle Game)"; // 249: character ∙
 	Controller::gotoXY(left1, top + 6);
 	cout << " includes a board of multiple cells, each of which presents a figure.";
 	Controller::gotoXY(left1, top + 8);
@@ -327,72 +326,72 @@ void Menu::helpScreen()
 	putchar(249); cout << " A legal match will make the two cells disappear. The game ends when";
 	Controller::gotoXY(left1, top + 12);
 	cout << " all matching pairs are found.";
-
+	// score instruction
 	Controller::gotoXY(left + 3, top + 15);
 	cout << "Scoring:";
 	Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 	Controller::gotoXY(left1 + 10, top + 14);
-	putchar(249); cout << " I Matching: +1 BTC";
+	putchar(249); cout << " I Matching: +1 Point";
 	Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 	Controller::gotoXY(left1 + 40, top + 14);
-	putchar(249); cout << " L Matching: +2 BTC";
+	putchar(249); cout << " L Matching: +2 Point";
 	Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 	Controller::gotoXY(left1 + 10, top + 15);
-	putchar(249); cout << " Z Matching: +3 BTC";
+	putchar(249); cout << " Z Matching: +3 Point";
 	Controller::gotoXY(left1 + 40, top + 15);
-	putchar(249); cout << " U Matching: +4 BTC";
+	putchar(249); cout << " U Matching: +4 Point";
 	Controller::setConsoleColor(BRIGHT_WHITE, RED);
 	Controller::gotoXY(left1 + 10, top + 16);
-	putchar(249); cout << " Not Matched: -2 BTC";
+	putchar(249); cout << " Not Matched: -2 Point";
 	Controller::setConsoleColor(BRIGHT_WHITE, RED);
 	Controller::gotoXY(left1 + 40, top + 16);
-	putchar(249); cout << " Move suggestion: -2 BTC";
-
+	putchar(249); cout << " Move suggestion: -2 Point";
+	// Developers' in4
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(left + 3, top + 20);
 	cout << "Developers:";
 	Controller::gotoXY(left + 31, top + 19);
-	cout << "Dev 1: Tran Tung Lam (21127337)";
+	cout << "Dev 1: Nguyen Anh Kiet (23127005)";
 	Controller::gotoXY(left + 31, top + 21);
-	cout << "Dev 2: Le Minh (21127645)";
-
+	cout << "Dev 2: Pham Ngoc Dung (23127003)";
+	// Back key
 	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
 	printRectangle(45, 27, 8, 2);
 	Controller::setConsoleColor(BRIGHT_WHITE, RED);
 	Controller::gotoXY(43, 28);
-	putchar(175);
+	putchar(175); // »
 	Controller::gotoXY(48, 28);
 	cout << "Back";
 	Controller::gotoXY(56, 28);
-	putchar(174);
-	while (Controller::getConsoleInput() != 6)
+	putchar(174); // «
+	while (Controller::getConsoleInput() != 6) // players have to press "enter" to go back
 	{
 		Controller::playSound(ERROR_SOUND);
 	}
 }
 
 void Menu::printRectangle(int left, int top, int width, int height)
-{
+{	// print the top line
 	Controller::gotoXY(left, top);
-	putchar(218);
+	putchar(218); // ┌
 	for (int i = 0; i < width; i++)
-		putchar(196);
-	putchar(191);
-
+		putchar(196); // ─
+	putchar(191); // ┐
+	// print 2 vertical lines
 	int i = 0;
 	for (; i < height; i++)
 	{
 		Controller::gotoXY(left, top + i + 1);
-		putchar(179);
+		putchar(179); // │
 		Controller::gotoXY(left + width + 1, top + i + 1);
-		putchar(179);
+		putchar(179); // │
 	}
-
+	// print the bottom line
 	Controller::gotoXY(left, top + i);
-	putchar(192);
+	putchar(192); // └
 	for (i = 0; i < width; i++)
-		putchar(196);
-	putchar(217);
+		putchar(196); // ─
+	putchar(217); // ┘
 }
 
 void Menu::exitScreen()
@@ -455,9 +454,9 @@ void Menu::exitScreen()
 
 void Menu::leaderBoard()
 {
-	current_option = 0;
+	current_option = 0; // set current_option to 0
 	Controller::clearConsole();
-	Player p[100];
+	Player p[100]; // save 100 players
 	Controller::setConsoleColor(BRIGHT_WHITE, RED);
 	cout << R"(
 	  _      ______          _____  ______ _____  ____   ____          _____  _____  
