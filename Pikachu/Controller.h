@@ -178,13 +178,13 @@ int Controller::getConsoleInput()
 		if (c == KEY_ESC)                  //esc
 			return 1;
 		else if (c == 87 || c == 119) //W, w
-			return 2;
+			return 2; // same as KEY_UP
 		else if (c == 65 || c == 97)  //A, a
-			return 3;
+			return 3; // same as KEY_LEFT
 		else if (c == 68 || c == 100) //D, d
-			return 4;
+			return 4; // same as KEY_RIGHT
 		else if (c == 83 || c == 115) //S, s
-			return 5;
+			return 5; // same as KEY_DOWN
 		else if (c == 13)             //Enter
 			return 6;
 		else if (c == 72 || c == 104) //H, h
