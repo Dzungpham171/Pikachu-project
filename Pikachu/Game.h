@@ -396,47 +396,51 @@ void Menu::printRectangle(int left, int top, int width, int height)
 
 void Menu::exitScreen()
 {
-	Controller::showCursor(false);
-	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
-	Controller::clearConsole();
-	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
+	Controller::showCursor(false); // hide cursor
+	Controller::setConsoleColor(BRIGHT_WHITE, BLACK); // set color
+	Controller::clearConsole(); // clear console
+	Controller::setConsoleColor(BRIGHT_WHITE, BLACK); // set color
+	// 3 rectangle for "Do you want to exit?", "Yes", "No"
 	Menu::printRectangle(34, 13, 35, 8);
 	Menu::printRectangle(37, 18, 7, 2);
 	Menu::printRectangle(60, 18, 6, 2);
 	Controller::setConsoleColor(BRIGHT_WHITE, RED);
 	Controller::gotoXY(0, 0);
-	printLogo();
+	printLogo(); // print the logo like the main screen
 	Controller::gotoXY(42, 16);
 	cout << "Do you want to exit?";
 	string str[2] = { "Yes", "No" };
-	int left[] = { 35,40,47,58,63,69 }, word[] = { 32,32,175,174 }, color[] = { BLACK, RED }, top = 19;
-	bool choice = 0;
+	int left[] = { 35,40,47,58,63,69 }, // position of "Yes","NO", », «
+	word[] = { 32,32,175,174 }, // spacebar for not current option; », « for current option
+	color[] = { BLACK, RED }, // black for not current option; red for current option
+	top = 19; // position y of "Yes", "No"
+	bool choice = 0; // 0 for "yes", 1 for "no"
 	bool loop = 1;
-	auto print1 = [&]()
+	auto print1 = [&]() // print the frame, the current choice; change the choice
 	{
 		int i = 0;
 		while (i < 2)
 		{
 			Controller::playSound(MOVE_SOUND);
 			Controller::setConsoleColor(BRIGHT_WHITE, color[i]);
-			Controller::gotoXY(left[choice * 3], top);        putchar(word[i * 2]);
-			Controller::gotoXY(left[choice * 3 + 1], top);    cout << str[choice];
-			Controller::gotoXY(left[choice * 3 + 2], top);    putchar(word[i * 2 + 1]);
+			Controller::gotoXY(left[choice * 3], top);        putchar(word[i * 2]);  // spacebar for not current option; » for current option
+			Controller::gotoXY(left[choice * 3 + 1], top);    cout << str[choice]; // "yes"/"no"
+			Controller::gotoXY(left[choice * 3 + 2], top);    putchar(word[i * 2 + 1]); // spacebar for not current option; « for current option
 			if (!i++)
-				choice = !choice;
+				choice = !choice; // "yes" -> no, "no" -> "yes"
 		}
 	};
-	print1();
+	print1(); // print exit screen
 	while (loop)
 	{
-		int key = Controller::getConsoleInput();
-		if ((key == 3 && choice == 1) || (key == 4 && choice == 0))
+		int key = Controller::getConsoleInput(); // get input from console
+		if ((key == 3 && choice == 1) || (key == 4 && choice == 0)) // KEY_LEFT for "no" or KEY_RIGHT for "yes"
 		{
 			print1();
 		}
-		else if (key == 6)
+		else if (key == 6) // enter
 		{
-			if (!choice)
+			if (!choice) // "yes" will exit the program
 			{
 				Controller::setConsoleColor(BLACK, BRIGHT_WHITE);
 				Controller::clearConsole();
@@ -444,7 +448,7 @@ void Menu::exitScreen()
 			}
 			return;
 		}
-		else
+		else // other characters will play error sound
 		{
 			Controller::playSound(ERROR_SOUND);
 		}
@@ -466,9 +470,9 @@ void Menu::leaderBoard()
 	 | |____| |____ / ____ \| |__| | |____| | \ \| |_) | |__| / ____ \| | \ \| |__| |
 	 |______|______/_/    \_\_____/|______|_|  \_\____/ \____/_/    \_\_|  \_\_____/                                                                 
 	)";
+	// set the frame with a rectangle and lines, categorize the board into STT, Name, ID, Class, Mode, Score.
 	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
 	printRectangle(5, 8, 85, 17);
-
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(8, 9);
 	cout << "STT";
@@ -476,12 +480,12 @@ void Menu::leaderBoard()
 	for (int i = 1; i < 17; i++)
 	{
 		Controller::gotoXY(13, 8 + i);
-		putchar(179);
+		putchar(179); // │
 	}
 	for (int i = 6; i < 13; i++)
 	{
 		Controller::gotoXY(i, 10);
-		putchar(196);
+		putchar(196); // ─
 	}
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(18, 9);
@@ -490,12 +494,12 @@ void Menu::leaderBoard()
 	for (int i = 1; i < 17; i++)
 	{
 		Controller::gotoXY(30, 8 + i);
-		putchar(179);
+		putchar(179); // │
 	}
 	for (int i = 14; i < 30; i++)
 	{
 		Controller::gotoXY(i, 10);
-		putchar(196);
+		putchar(196); // ─
 	}
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(36, 9);
@@ -504,12 +508,12 @@ void Menu::leaderBoard()
 	for (int i = 1; i < 17; i++)
 	{
 		Controller::gotoXY(45, 8 + i);
-		putchar(179);
+		putchar(179); // │
 	}
 	for (int i = 31; i < 45; i++)
 	{
 		Controller::gotoXY(i, 10);
-		putchar(196);
+		putchar(196); // ─
 	}
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(52, 9);
@@ -518,12 +522,12 @@ void Menu::leaderBoard()
 	for (int i = 1; i < 17; i++)
 	{
 		Controller::gotoXY(62, 8 + i);
-		putchar(179);
+		putchar(179); // │
 	}
 	for (int i = 46; i < 62; i++)
 	{
 		Controller::gotoXY(i, 10);
-		putchar(196);
+		putchar(196); // ─
 	}
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(68, 9);
@@ -532,12 +536,12 @@ void Menu::leaderBoard()
 	for (int i = 1; i < 17; i++)
 	{
 		Controller::gotoXY(78, 8 + i);
-		putchar(179);
+		putchar(179); // │
 	}
 	for (int i = 63; i < 78; i++)
 	{
 		Controller::gotoXY(i, 10);
-		putchar(196);
+		putchar(196); // ─
 	}
 
 	Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
@@ -547,14 +551,14 @@ void Menu::leaderBoard()
 	for (int i = 79; i < 91; i++)
 	{
 		Controller::gotoXY(i, 10);
-		putchar(196);
+		putchar(196); // ─
 	}
-	int y = 11;
-	int lines = 8;
-	int n = 0;
+	int y = 11; // position sign
+	int lines = 8; // print top 7 players
+	int n = 0; // number of players
 	string tmp;
-	fstream fs("rank\\leaderboard.txt", ios::in);
-
+	fstream fs("rank\\leaderboard.txt", ios::in); // get file from rank\leaderboard text file
+	// read and save players' in4 to p array
 	while (!fs.eof()) {
 		getline(fs, p[n].playerName);
 		getline(fs, p[n].playerID);
@@ -565,6 +569,7 @@ void Menu::leaderBoard()
 		n++;
 	}
 	fs.close();
+	// sort the scores of players
 	for (int i = 0; i < n; i++) {
 		for (int j = i + 1; j < n; j++) {
 			if (p[j].score > p[i].score) {
@@ -572,6 +577,7 @@ void Menu::leaderBoard()
 			}
 		}
 	}
+	// print top 7 players
 	for (int i = 1; i < lines; i++) {
 		Controller::gotoXY(9, y);
 		cout << i;
@@ -587,17 +593,17 @@ void Menu::leaderBoard()
 		cout << p[i - 1].score;
 		y += 2;
 	}
-
+	// Back key
 	Controller::setConsoleColor(BRIGHT_WHITE, BLACK);
 	printRectangle(45, 27, 8, 2);
 	Controller::setConsoleColor(BRIGHT_WHITE, RED);
 	Controller::gotoXY(43, 28);
-	putchar(175);
+	putchar(175); // »
 	Controller::gotoXY(48, 28);
 	cout << "Back";
 	Controller::gotoXY(56, 28);
-	putchar(174);
-	while (Controller::getConsoleInput() != 6)
+	putchar(174); // «
+	while (Controller::getConsoleInput() != 6) // players have to press "enter" to go back
 	{
 		Controller::playSound(ERROR_SOUND);
 	}
