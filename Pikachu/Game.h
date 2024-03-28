@@ -49,7 +49,7 @@ int Menu::current_option;
 const string Menu::options[8] = { "Play", "LeaderBoard", "Help", "Exit", "Easy", "  Medium   ", "Back", "Exit"}; // 8 options in the game
 
 void Menu::mainScreen()
-{
+{	//maps strings to function pointers
 	unordered_map<string, void(*)()> function_map = {
 		{options[0], playMenu},
 		{options[1], leaderBoard},
@@ -60,37 +60,37 @@ void Menu::mainScreen()
 		{options[6], goBack},
 		{options[7], exitScreen}
 	};
-	Controller::playSound(BACKGROUND_SOUND);
+	Controller::playSound(BACKGROUND_SOUND); // play background sound
 	printAnimation();
-	bool loadMenu = 1;
+	bool loadMenu = 1; // to decide if print the main menu
 	while (true)
 	{
 		if (loadMenu)
 			mainMenu();
-		switch (Controller::getConsoleInput())
+		switch (Controller::getConsoleInput()) // get input from console
 		{
-		case 2:
-			changeOption(0, 1);
+		case 2: // KEY_UP
+			changeOption(0, 1); // decrease current_option and change the interface (if possible)
 			loadMenu = 0;
 			break;
-		case 5:
-			changeOption(1, 1);
+		case 5: // KEY_DOWN
+			changeOption(1, 1); // increase current_option and change the interface (if possible)
 			loadMenu = 0;
 			break;
-		case 6:
-			if (current_option == 0)
+		case 6: // enter
+			if (current_option == 0) // enter "Play" key will not load menu next loop
 				loadMenu = 0;
 			else
 				loadMenu = 1;
-			function_map[options[current_option]]();
+			function_map[options[current_option]](); // run the function of current option
 			break;
-		default:
+		default: // other characters will lead to error sound, do not load menu next loop
 			Controller::playSound(ERROR_SOUND);
 			loadMenu = 0;
 		}
 	}
 
-	Controller::clearConsole();
+	Controller::clearConsole(); // clear console
 }
 
 void Menu::printLogo() //print logo, title, students' name and ID
