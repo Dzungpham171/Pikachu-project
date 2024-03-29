@@ -74,11 +74,11 @@ BoardView::~BoardView()
 	background = nullptr;
 }
 
-int BoardView::getSize() // Get size of Board
+int BoardView::getSize() // Get size of the Board
 {
 	return size;
 }
- // Get corner console screen position of board
+ // Get console screen position of the left or top corner of the board
 int BoardView::getLeft()
 {
 	return left;
@@ -98,12 +98,12 @@ int BoardView::getYAt(int i, int j)
 {
 	return pBoard[i][j].getY();
 }
-// get x position of a Point in pBoard
+// get Row (i position) at (x,y) of console screen
 int BoardView::getRAt(int x, int y)
 {
 	return (y - 2 - top) / 4;
 }
-// get y position of a Point in pBoard
+// get Column (j position) at (x,y) of console screen
 int BoardView::getCAt(int x, int y)
 {
 	return (x - 5 - left) / 8;
@@ -113,7 +113,7 @@ char BoardView::getPokemons(int x, int y)
 {
 	return pBoard[getRAt(x,y)][getCAt(x,y)].getPokemons();
 }
-
+//// getCheck of the Point having x,y console screen position
 int BoardView::getCheckAtXY(int pX, int pY)
 {
 	for (int i = 0; i < size; i++)
@@ -126,6 +126,7 @@ int BoardView::getCheckAtXY(int pX, int pY)
 	}
 	throw "Problem with cursor position"; //Exception Handling
 }
+// getCheck at (x,y) of console screen
 int BoardView::getCheck(int x, int y)
 {
 	int r = getRAt(x, y);
