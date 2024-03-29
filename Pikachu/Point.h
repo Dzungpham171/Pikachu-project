@@ -6,29 +6,29 @@
 
 struct Point
 {
-	int _x = 0;					// x position
-	int _y = 0;					// y position
+	int _x = 0;					// x position of console screen
+	int _y = 0;					// y position of console screen
 	int _check = 0;			//1: LOCK, 0: NORMAL, -1: DELETE
-	char _pokemon = ' ';
+	char _pokemon = ' ';		// pokemon is a char value
 	Point();			// Default initialization
 	Point(int, int, int, char);	// initialization
 
 	int getX();			// get x position
 	int getY();			// get y position
-	int getCheck();		//
+	int getCheck();			// get check value
 
-	void setX(int);		//Gán vị trí x
-	void setY(int);		//Gán vị trí y
-	void setCheck(int);	//Gán quân cờ
+	void setX(int);		// Assign x position
+	void setY(int);		// Assign y position
+	void setCheck(int);	// Assign check
 
-	char getPokemons();
-	void setPokemons(char);
+	char getPokemons();	// get Pokemon
+	void setPokemons(char); // Assign a character to pokemon
 
 };
 
 Point::Point()
 {
-	_x = _y = _check = 0;
+	_x = _y = _check = 0; // default position is 0-0-0
 }
 
 Point::Point(int x, int y, int check, char pokemon)
