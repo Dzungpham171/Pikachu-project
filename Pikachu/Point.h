@@ -6,16 +6,16 @@
 
 struct Point
 {
-	int _x = 0;					//Vị trí x
-	int _y = 0;					//Vị trí y
+	int _x = 0;					// x position
+	int _y = 0;					// y position
 	int _check = 0;			//1: LOCK, 0: NORMAL, -1: DELETE
 	char _pokemon = ' ';
-	Point();			//Phương thức tạo lập
-	Point(int, int, int, char);	//Phương thức tạo lập
+	Point();			// Default initialization
+	Point(int, int, int, char);	// initialization
 
-	int getX();			//Lấy vị trí x
-	int getY();			//Lấy vị trí y
-	int getCheck();		//Lấy quân cờ
+	int getX();			// get x position
+	int getY();			// get y position
+	int getCheck();		//
 
 	void setX(int);		//Gán vị trí x
 	void setY(int);		//Gán vị trí y
