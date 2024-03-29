@@ -276,7 +276,7 @@ void BoardView::buildBoardData() {
 	delete[] pos;
 	delete[] checkDuplicate;
 }
-// print pokemon char or background (if pokemon deleted)
+// print selected pokemon char or background (if pokemon deleted)
 void BoardView::selectedBlock(int x, int y, int color) {
 	Controller::setConsoleColor(color, BLACK);
 	for (int i = y - 1; i <= y + 1; i++) {
@@ -300,8 +300,9 @@ void BoardView::selectedBlock(int x, int y, int color) {
 		}
 	}
 }
-
-void BoardView::unselectedBlock(int x, int y) {
+// set a point to unselected if it is selected. print pokemon char or background (if pokemon deleted)
+void BoardView::unselectedBlock(int x, int y)
+{
 	int r = getRAt(x, y);
 	int c = getCAt(x, y);
 	if(getCheck(x, y) != _DELETE)
@@ -329,7 +330,7 @@ void BoardView::unselectedBlock(int x, int y) {
 		}
 	}
 }
-
+// lock and print the Point that has not deleted
 void BoardView::lockBlock(int x, int y)
 {
 	int r = getRAt(x, y);
@@ -404,25 +405,25 @@ void BoardView::drawLineI(pair<int, int>firstBlock, pair<int, int>secondBlock) {
 	Controller::setConsoleColor(RED, BRIGHT_WHITE);
 	if (firstBlock.first == secondBlock.first) {
 		Controller::gotoXY(firstBlock.first, firstBlock.second + 1);
-		putchar(30);
+		putchar(73);
 		for (int i = firstBlock.second + 2; i <= secondBlock.second - 2; i++) {
 			Controller::gotoXY(firstBlock.first, i);
 			putchar(179);
 		}
 		Controller::gotoXY(secondBlock.first, secondBlock.second - 1);
-		putchar(31);
+		putchar(73);
 		return;
 	}
 	//========================================================================//
 	if (firstBlock.second == secondBlock.second) {
 		Controller::gotoXY(firstBlock.first + 1, firstBlock.second);
-		putchar(17);
+		putchar(73);
 		for (int i = firstBlock.first + 2; i <= secondBlock.first - 2; i++) {
 			Controller::gotoXY(i, firstBlock.second);
 			putchar(45);
 		}
 		Controller::gotoXY(secondBlock.first - 1, secondBlock.second);
-		putchar(16);
+		putchar(73);
 		return;
 	}
 }
