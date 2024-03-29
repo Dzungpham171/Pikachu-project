@@ -12,25 +12,24 @@ using namespace std;
 
 
 struct BoardView {
-	int size;						// Kích thước bàn cờ
-	int left, top;					// tọa độ góc trên bàn cờ
-	Point** pBoard;					// Mảng tọa độ ô cờ
-	int** pokemons;
-	string* background;
+	int size;					// Board size*size
+	int left, top;					// console position x,y at left, top corner position of the board
+	Point** pBoard;					// 2D Array of points 
+	int** pokemons;					// 2D Array of pokemons (random then set to _pokemon in pBoard's Points)
+	string* background;				// background
 
-	BoardView(int, int, int);			
-	~BoardView();
+	BoardView(int, int, int);			// inizalize a Board psize*psize
+	~BoardView();					// delete the Board
 
-	int getSize();					//Lấy kích cỡ
-	int getLeft();					//Lấy tọa độ trái bắt đầu bàn cờ
-	int getTop();					//Lấy tọa độ trên bắt đầu bàn cờ
-	int getXAt(int, int);			//Lấy tọa độ x tại ô
-	int getYAt(int, int);			//Lấy tọa độ y tại ô
-	int getCheckAtXY(int, int);
-	int getRAt(int, int);			//Lấy tọa độ R (row) tại tọa độ x y
-	int getCAt(int, int);			//Lấy tọa độ C (column) tại tọa độ x y
-	char getPokemons(int, int);
-	int getCheck(int, int);
+	int getSize();					// Get size of the Board
+	int getLeft(); int getTop();			// Get console screen position of the left or top corner of the board
+	int getXAt(int, int);				// get console screen x position of a Point in pBoard
+	int getYAt(int, int);				// get console screen y position of a Point in pBoard	
+	int getCheckAtXY(int, int);			// getCheck of the Point having x,y console screen position
+	int getRAt(int, int);				// get Row (i position) at (x,y) of console screen
+	int getCAt(int, int);				// get Column (j position) at (x,y) of console screen
+	char getPokemons(int, int);			// get pokemon at (x,y) of console screen
+	int getCheck(int, int);				// getCheck at (x,y) of console screen
 
 	void showBoard();
 	void renderBoard();
@@ -53,8 +52,8 @@ struct BoardView {
 
 	void createBackground();
 };
-
-BoardView::BoardView(int psize, int pX, int pY) : size(psize), left(pX), top(pY)
+// inizalize a Board psize*psize
+BoardView::BoardView(int psize, int pX, int pY) : size(psize), left(pX), top(pY) // size = psize, left = pX, top = pY
 {
 	pokemons = new int*[size];
 	for (int i = 0; i < psize; i++)
@@ -64,7 +63,7 @@ BoardView::BoardView(int psize, int pX, int pY) : size(psize), left(pX), top(pY)
 		pBoard[i] = new Point[psize];
 	background = new string[psize * 10];
 }
-
+// delete the Board
 BoardView::~BoardView()
 {
 	for (int i = 0; i < size; i++)
@@ -75,11 +74,11 @@ BoardView::~BoardView()
 	background = nullptr;
 }
 
-int BoardView::getSize()
+int BoardView::getSize() // Get size of Board
 {
 	return size;
 }
-
+ // Get corner console screen position of board
 int BoardView::getLeft()
 {
 	return left;
@@ -89,27 +88,27 @@ int BoardView::getTop()
 {
 	return top;
 }
-
+// get console screen x position of a Point in pBoard
 int BoardView::getXAt(int i, int j)
 {
 	return pBoard[i][j].getX();
 }
-
+// get console screen y position of a Point in pBoard
 int BoardView::getYAt(int i, int j)
 {
 	return pBoard[i][j].getY();
 }
-
+// get x position of a Point in pBoard
 int BoardView::getRAt(int x, int y)
 {
 	return (y - 2 - top) / 4;
 }
-
+// get y position of a Point in pBoard
 int BoardView::getCAt(int x, int y)
 {
 	return (x - 5 - left) / 8;
 }
-
+// get pokemon in position x,y of console screen
 char BoardView::getPokemons(int x, int y)
 {
 	return pBoard[getRAt(x,y)][getCAt(x,y)].getPokemons();
@@ -125,7 +124,7 @@ int BoardView::getCheckAtXY(int pX, int pY)
 				return pBoard[i][j].getCheck();
 		}
 	}
-	throw "Problem with cursor position";
+	throw "Problem with cursor position"; //Exception Handling
 }
 int BoardView::getCheck(int x, int y)
 {
@@ -133,7 +132,7 @@ int BoardView::getCheck(int x, int y)
 	int c = getCAt(x, y);
 	return pBoard[r][c].getCheck();
 }
-/////////////////////////////////////////////////////////////////////
+// draw the frame of the board
 void BoardView::showBoard()
 {
 	if (pBoard == NULL)
@@ -220,7 +219,7 @@ void BoardView::showBoard()
 		Sleep(5);
 	}
 }
-
+// print characters in the board
 void BoardView::renderBoard() {
 	for (int i = 0; i < size; i++)
 	{
@@ -238,7 +237,7 @@ void BoardView::renderBoard() {
 		}
 	}
 }
-
+// random pokemons in the board
 void BoardView::buildBoardData() {
 	srand((unsigned int)time(NULL));
 
@@ -276,7 +275,7 @@ void BoardView::buildBoardData() {
 	delete[] pos;
 	delete[] checkDuplicate;
 }
-
+// print pokemon char or background (if pokemon deleted)
 void BoardView::selectedBlock(int x, int y, int color) {
 	Controller::setConsoleColor(color, BLACK);
 	for (int i = y - 1; i <= y + 1; i++) {
@@ -1089,16 +1088,16 @@ void BoardView::deleteLineU(pair<int, int>firstBlock, pair<int, int>secondBlock,
 		return;
 	}
 }
-
+// store each line of the background file in the background array
 void BoardView::createBackground() {
 	ifstream bg;
-	if(size == 4)
+	if(size == 4) // easy game
 		bg.open("images\\easy.txt");
-	else
+	else // size = 6, medium game
 		bg.open("images\\medium.txt");
 	int i = 0;
 	while (!bg.eof()) {
-		getline(bg, background[i]);
+		getline(bg, background[i]); // store each line of the background file in the background array
 		i++;
 	}
 	bg.close();
