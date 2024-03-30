@@ -405,25 +405,25 @@ void BoardView::drawLineI(pair<int, int>firstBlock, pair<int, int>secondBlock) {
 	Controller::setConsoleColor(RED, BRIGHT_WHITE);
 	if (firstBlock.first == secondBlock.first) {
 		Controller::gotoXY(firstBlock.first, firstBlock.second + 1);
-		putchar(73);
+		putchar(30);
 		for (int i = firstBlock.second + 2; i <= secondBlock.second - 2; i++) {
 			Controller::gotoXY(firstBlock.first, i);
 			putchar(179);
 		}
 		Controller::gotoXY(secondBlock.first, secondBlock.second - 1);
-		putchar(73);
+		putchar(31);
 		return;
 	}
 	//========================================================================//
 	if (firstBlock.second == secondBlock.second) {
 		Controller::gotoXY(firstBlock.first + 1, firstBlock.second);
-		putchar(73);
+		putchar(17);
 		for (int i = firstBlock.first + 2; i <= secondBlock.first - 2; i++) {
 			Controller::gotoXY(i, firstBlock.second);
 			putchar(45);
 		}
 		Controller::gotoXY(secondBlock.first - 1, secondBlock.second);
-		putchar(73);
+		putchar(16);
 		return;
 	}
 }
