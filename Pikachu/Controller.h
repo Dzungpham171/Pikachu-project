@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #pragma comment(lib, "Winmm.lib")
 
 #include <windows.h>
@@ -112,10 +112,7 @@ int wchar_to_char(const wchar_t* wstr, char* buffer, int buf_size) //convert wid
 
 void Controller::setConsoleTitle()
 {
-
-	char title[20];
-	wchar_to_char(L"\u0050\u0049\u004b\u0041\u0043\u0048\u0055", title, sizeof(title)); //PIKACHU
-	SetConsoleTitle(title); //https://learn.microsoft.com/vi-vn/windows/console/setconsoletitle
+	SetConsoleTitleW(L"\u0050\u0049\u004b\u0041\u0043\u0048\u0055"); // PIKACHU
 }
 
 void Controller::disableMaximize()
