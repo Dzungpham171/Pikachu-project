@@ -611,22 +611,22 @@ void Menu::leaderBoard()
 
 struct Game {
 	BoardView* board;				// Create new board
-	char playerName[15] = "", playerID[9] = "", className[8] = "", mode[8] = "";
-	int _mode;
-	int _x, _y;
-	bool isPlaying;
-	int _lockedBlock;
-	int _remainBlocks;
-	int score;
+	char playerName[15] = "", playerID[9] = "", className[8] = "", mode[8] = "";  // player's in4
+	int _mode; // easy or normal game
+	int _x, _y; 
+	bool isPlaying; // check if in game screen
+	int _lockedBlock; // number of locked block: 0 if there's no locked block, 1 if there is 1 locked block, 2 wil delete blocks if matching
+	int _remainBlocks; // number of remain blocks, 0 wil end game
+	int score; // current score
 
-	vector<pair<int, int>> _lockedBlockPair; //First: row - Second: column
+	vector<pair<int, int>> _lockedBlockPair; // position of locked block(s) First: row - Second: column
 
-	bool checkMatchedPokemons(pair<int, int>, pair<int, int>);
-	int checkIMatching(pair<int, int>, pair<int, int>, bool);
+	bool checkMatchedPokemons(pair<int, int>, pair<int, int>); // 1 if 2 pokemons is the same
+	int checkIMatching(pair<int, int>, pair<int, int>, bool); 
 	bool checkLMatching(pair<int, int>, pair<int, int>, bool);
 	bool checkZMatching(pair<int, int>, pair<int, int>, bool);
 	bool checkUMatching(pair<int, int>, pair<int, int>, bool);
-	bool checkMatching(pair<int, int>, pair<int, int>, bool);
+	bool checkMatching(pair<int, int>, pair<int, int>, bool); // check I,L,Z,U matching in order, then change and print the score
 
 	Game(int);
 	~Game();
@@ -644,10 +644,10 @@ struct Game {
 	char getPokemons(int x, int y);
 
 	void lockBlock();
-	void deleteBlock();
-	bool isAvailableBlock(bool);
+	void deleteBlock(); // delete blocks if matching, then print announcement if end game or no more matching blocks
+	bool isAvailableBlock(bool); // check if there are any possible matching blocks
 
-	void askContinue();
+	void askContinue(); // ask to continue in end ame
 	void moveSuggestion();
 };
 
