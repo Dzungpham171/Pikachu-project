@@ -1302,11 +1302,11 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 			Controller::setConsoleColor(BRIGHT_WHITE, RED);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC ";
+				cout << score << " Point";
 			}
 			else {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC";
+				cout << score << " Point";
 			}
 		}
 		return 0;
@@ -1320,11 +1320,11 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC ";
+				cout << score << " Point";
 			}
 			else {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC";
+				cout << score << " Point";
 			}
 		}
 		return 1;
@@ -1338,11 +1338,11 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC ";
+				cout << score << " Point";
 			}
 			else {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC";
+				cout << score << " Point";
 			}
 		}
 		return 1;
@@ -1356,11 +1356,11 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC ";
+				cout << score << " Point";
 			}
 			else {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC";
+				cout << score << " Point";
 			}
 		}
 		return 1;
@@ -1374,11 +1374,11 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC ";
+				cout << score << " Point";
 			}
 			else {
 				Controller::gotoXY(80, 17);
-				cout << score << " BTC";
+				cout << score << " Point";
 			}
 		}
 		return 1;
@@ -1546,11 +1546,11 @@ void Game::moveSuggestion() {
 							Controller::setConsoleColor(BRIGHT_WHITE, RED);
 							if (score >= 0) {
 								Controller::gotoXY(80, 17);
-								cout << score << " BTC ";
+								cout << score << " Point";
 							}
 							else {
 								Controller::gotoXY(80, 17);
-								cout << score << " BTC";
+								cout << score << " Point";
 							}
 							return;
 						}
