@@ -676,8 +676,8 @@ Game::~Game() {
 
 void Game::startGame() 
 {
-	bonusStart = -10;
-	score_multiplier = 1;
+	bonusStart = -10; // initialize bonus start time
+	score_multiplier = 1; // initialize score multiplier
 	Controller::clearConsole(); // clear console
 	while (isPlaying) // check if the player is playing
 		{
@@ -709,10 +709,10 @@ void Game::startGame()
 		while (_remainBlocks && !isPause) // check if there are still blocks and game is playing
 		{
 			Controller::gotoXY(83, 18);
-			Controller::setConsoleColor(BRIGHT_WHITE, rand() % 16);
-			if (time(nullptr) - bonusStart > 5)
-				score_multiplier = 1;
-			cout << "x" << score_multiplier;
+			Controller::setConsoleColor(BRIGHT_WHITE, rand() % 16); // random function to provide RGB effects
+			if (time(nullptr) - bonusStart > 5) // check if the current time is more 5 seconds later than bonus start time
+				score_multiplier = 1; // if so, set score_multiplier to originial value
+			cout << "x" << score_multiplier; // print score_multiplier
 			switch (Controller::getConsoleInput()) // get console input from the keyboard
 			{
 			case 0:
@@ -1317,12 +1317,15 @@ bool Game::checkUMatching(pair<int, int> firstBlock, pair<int, int> secondBlock,
 }
 bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, bool isChecking)
 {
-	if (!checkMatchedPokemons(firstBlock, secondBlock)) {
+	if (!checkMatchedPokemons(firstBlock, secondBlock)) // check if two blocks are the same
+	{
 		if (isChecking == false) {
+			// display not mached announcement
 			Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 			Controller::gotoXY(72, 16);
 			cout << "Not Matched";
-			score -= 2;
+			score -= 2; // decrease score
+			// display score if score >= 0
 			Controller::setConsoleColor(BRIGHT_WHITE, RED);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
@@ -1335,14 +1338,17 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 		}
 		return 0;
 	}
-	if (checkIMatching(firstBlock, secondBlock, isChecking)) {
+	if (checkIMatching(firstBlock, secondBlock, isChecking)) // check I matching
+	{
 		if (isChecking == false) {
+			// announce I matching
 			Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 			Controller::gotoXY(72, 16);
 			cout << "I Matching.";
-			if (time(nullptr) - bonusStart <= 5)
-				score_multiplier = 2;
-			score += (1 * score_multiplier);
+			if (time(nullptr) - bonusStart <= 5) // check if the current time is less 5 seconds later than bonus start time
+				score_multiplier = 2; // increase score_multiplier
+			score += (1 * score_multiplier); // increase score
+			// display score if score >= 0
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
@@ -1356,14 +1362,17 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 		}
 		return 1;
 	}
-	if (checkLMatching(firstBlock, secondBlock, isChecking)) {
+	if (checkLMatching(firstBlock, secondBlock, isChecking)) // check L matching 
+	{
 		if (isChecking == false) {
+			// announce L matching
 			Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 			Controller::gotoXY(72, 16);
 			cout << "L Matching.";
-			if (time(nullptr) - bonusStart <= 5)
-				score_multiplier = 2;
-			score += (2 * score_multiplier);
+			if (time(nullptr) - bonusStart <= 5) // check if the current time is less 5 seconds later than bonus start time
+				score_multiplier = 2; // increase score_multiplier
+			score += (2 * score_multiplier); // increase score
+			// display score if score >= 0
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
@@ -1377,14 +1386,17 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 		}
 		return 1;
 	}
-	if (checkZMatching(firstBlock, secondBlock, isChecking)) {
+	if (checkZMatching(firstBlock, secondBlock, isChecking)) // check Z matching
+	{
 		if (isChecking == false) {
+			// announce Z matching
 			Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 			Controller::gotoXY(72, 16);
 			cout << "Z Matching.";
-			if (time(nullptr) - bonusStart <= 5)
-				score_multiplier = 2;
-			score += (3 * score_multiplier);
+			if (time(nullptr) - bonusStart <= 5) // check if the current time is less 5 seconds later than bonus start time
+				score_multiplier = 2; // increase score_multiplier
+			score += (3 * score_multiplier); // increase score
+			// display score if score >= 0
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
@@ -1398,14 +1410,17 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 		}
 		return 1;
 	}
-	if (checkUMatching(firstBlock, secondBlock, isChecking)) {
+	if (checkUMatching(firstBlock, secondBlock, isChecking)) // check U matching 
+	{
 		if (isChecking == false) {
+			// announce U matching
 			Controller::setConsoleColor(BRIGHT_WHITE, BLUE);
 			Controller::gotoXY(72, 16);
 			cout << "U Matching.";
-			if (time(nullptr) - bonusStart <= 5)
-				score_multiplier = 2;
-			score += (4 * score_multiplier);
+			if (time(nullptr) - bonusStart <= 5) // check if the current time is less 5 seconds later than bonus start time
+				score_multiplier = 2; // increase score_multiplier
+			score += (4 * score_multiplier); // increase score
+			// display score if score >= 0
 			Controller::setConsoleColor(BRIGHT_WHITE, GREEN);
 			if (score >= 0) {
 				Controller::gotoXY(80, 17);
@@ -1553,33 +1568,34 @@ void Game::askContinue()
 }
 
 void Game::moveSuggestion() {
-	bool isHelp = true;
-	int size = board->getSize();
-	pair<int, int> firstBlock;
-	pair<int, int> secondBlock;
+	bool isHelp = true; // initialize a flag
+	int size = board->getSize(); // get the size of the board
+	pair<int, int> firstBlock; // declare the first block
+	pair<int, int> secondBlock; // declare the second block
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
-			firstBlock.first = board->getXAt(i, j);
-			firstBlock.second = board->getYAt(i, j);
+			firstBlock.first = board->getXAt(i, j); // get first block's x position
+			firstBlock.second = board->getYAt(i, j); // get first block's y position
 			if (board->getCheck(firstBlock.first, firstBlock.second) == _DELETE) {
-				continue;
+				continue; // skip iteration if this block is deleted
 			}
 			for (int m = i; m < size; m++) {
 				for (int n = 0; n < size; n++) {
-					if (i == m && n <= j) continue;
-					secondBlock.first = board->getXAt(m, n);
-					secondBlock.second = board->getYAt(m, n);
+					if (i == m && n <= j) continue; 
+					secondBlock.first = board->getXAt(m, n); // get second block's x position
+					secondBlock.second = board->getYAt(m, n); // get second block's y position
 					if (board->getCheck(secondBlock.first, secondBlock.second) == _DELETE)
-						continue;
+						continue; // skip iteration if this block is deleted
 					if (checkMatching(firstBlock, secondBlock, isHelp)) {
 						if(isHelp) {
-							board->selectedBlock(firstBlock.first, firstBlock.second, PURPLE);
-							board->selectedBlock(secondBlock.first, secondBlock.second, PURPLE);
-							Sleep(200);
-							board->unselectedBlock(firstBlock.first, firstBlock.second);
-							board->unselectedBlock(secondBlock.first, secondBlock.second);
-							score_multiplier = 1;
-							score -= 2;
+							board->selectedBlock(firstBlock.first, firstBlock.second, PURPLE); // fill first block with purple
+							board->selectedBlock(secondBlock.first, secondBlock.second, PURPLE); // fill second block with purple
+							Sleep(200); // display purple color for 0.2 seconds
+							board->unselectedBlock(firstBlock.first, firstBlock.second); // unfill first block
+							board->unselectedBlock(secondBlock.first, secondBlock.second); // unfil second block
+							score_multiplier = 1; // set score_multiplier to original value
+							score -= 2; // decrease score for using suggestion
+							// display score if score >= 0
 							Controller::setConsoleColor(BRIGHT_WHITE, RED);
 							if (score >= 0) {
 								Controller::gotoXY(80, 17);
