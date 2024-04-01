@@ -653,6 +653,7 @@ struct Game {
 
 Game::Game(int mode)
 {
+	// game constructor
 	_mode = mode;
 	_x = LEFT, _y = TOP;
 	board = new BoardView(_mode, LEFT, TOP);
@@ -664,26 +665,31 @@ Game::Game(int mode)
 }
 
 Game::~Game() {
+	// board deallocation
 	delete board;
 	board = nullptr;
 }
 
 void Game::startGame() 
 {
-	Controller::clearConsole();
-	while (isPlaying) {
-		_remainBlocks = _mode * _mode;
-		score = 0;
-		bool isPause = false;
-		printInterface();
-		_x = board->getXAt(0, 0);
-		_y = board->getYAt(0, 0);
-		Controller::gotoXY(_x, _y);
-		board->selectedBlock(_x, _y, GREEN);
-		putchar(board->getPokemons(_x, _y));
-		Controller::gotoXY(_x, _y);
-		if (!isAvailableBlock(true)) {
-			Controller::setConsoleColor(BRIGHT_WHITE, RED);
+	Controller::clearConsole(); // clear console
+	while (isPlaying) // check if the player is playing
+		{
+		_remainBlocks = _mode * _mode; // total of blocks
+		score = 0; // initialize beginning score
+		bool isPause = false; // initialize game state (not pause)
+		printInterface(); // print interface
+		_x = board->getXAt(0, 0); // get the _x position at 0
+		_y = board->getYAt(0, 0); // get the _y position at y
+		Controller::gotoXY(_x, _y); // go to that position
+		board->selectedBlock(_x, _y, GREEN); // select the left top block of the board
+		putchar(board->getPokemons(_x, _y)); // print the character related to _x, _y postiion
+		Controller::gotoXY(_x, _y); // go to the _x, _y position
+		if (!isAvailableBlock(true)) // check if there are still available matchings
+		{
+			Controller::setConsoleColor(BRIGHT_WHITE, RED); // red color
+
+			// announce that there are no available matchings left
 			Controller::gotoXY(69, 18);
 			cout << "Game Announcement";
 			Controller::gotoXY(64, 19);
@@ -691,11 +697,12 @@ void Game::startGame()
 			Sleep(800);
 			Controller::gotoXY(62, 21);
 			cout << "Auto reset the board. Have fun!";
-			Sleep(1000);
-			startGame();
+			Sleep(1000); // sleep for a while
+			startGame(); // restart the game
 		}
-		while (_remainBlocks && !isPause) {
-			switch (Controller::getConsoleInput())
+		while (_remainBlocks && !isPause) // check if there are still blocks and game is playing
+		{
+			switch (Controller::getConsoleInput()) // get console input from the keyboard
 			{
 			case 0:
 				Controller::playSound(ERROR_SOUND);
@@ -736,21 +743,22 @@ void Game::startGame()
 	saveData();
 }
 
-void Menu::playEasy()
+void Menu::playEasy() // easy game mode
 {
 	Game g(_EASY);
 	g.setupGame();
 	g.startGame();
 }
 
-void Menu::playMedium()
+void Menu::playMedium() // medium game mode
 {
 	Game g(_MEDIUM);
 	g.setupGame();
 	g.startGame();
 }
 
-void Game::setupGame() {
+void Game::setupGame() // set up game to get player's information
+{
 	Controller::setConsoleColor(BRIGHT_WHITE, YELLOW);
 	Controller::clearConsole();
 	Controller::gotoXY(0, 0);
@@ -763,31 +771,31 @@ void Game::setupGame() {
 	Controller::setConsoleColor(BRIGHT_WHITE, LIGHT_BLUE);
 	Controller::gotoXY(35, 18);
 	cout << "Enter your name:  ";
-	cin.getline(playerName, 15);
+	cin.getline(playerName, 15); // get the player's name
 	Controller::gotoXY(35, 20);
 	cout << "Enter your ID:  ";
-	cin.getline(playerID, 9);
+	cin.getline(playerID, 9); // get the player's ID
 	Controller::gotoXY(35, 22);
 	cout << "Enter your class's name:  ";
-	cin.getline(className, 8);
+	cin.getline(className, 8); // get the player's class name
 	if (_mode == 4)
-		strcpy_s(mode, "EASY");
+		strcpy_s(mode, "EASY"); // assign mode as EASY
 	else 
-		strcpy_s(mode, "MEDIUM");
-	Controller::showCursor(false);
+		strcpy_s(mode, "MEDIUM"); // assign mode as MEDIUM
+	Controller::showCursor(false); // disable cursor display
 }
 
 void Game::saveData() {
-	fstream fs("rank\\leaderboard.txt", ios::app);
-	fs << playerName << '\n' << playerID << '\n' << className << '\n' << mode << '\n' << score << '\n';
-	fs.close();
+	fstream fs("rank\\leaderboard.txt", ios::app); // append player's data to "leaderboard.txt"
+	fs << playerName << '\n' << playerID << '\n' << className << '\n' << mode << '\n' << score << '\n'; // print player's data into "leaderboard.txt"
+	fs.close(); // close the file
 }
 
 void Game::moveRight()
 {
-	if (_x < board->getXAt(board->getSize() - 1, board->getSize() - 1))
+	if (_x < board->getXAt(board->getSize() - 1, board->getSize() - 1)) // check if the current position is inside the board
 	{
-		Controller::playSound(MOVE_SOUND);
+		Controller::playSound(MOVE_SOUND); // play the move sound
 		if (board->getCheck(_x, _y) != _LOCK) {
 			board->unselectedBlock(_x, _y);
 		}
@@ -796,7 +804,7 @@ void Game::moveRight()
 		{
 			Controller::gotoXY(_x, _y);
 		}
-		_x += 8;
+		_x += 8; // increment of x per step
 
 		if (board->getCheck(_x, _y) != _LOCK) {
 			board->selectedBlock(_x, _y, GREEN);
