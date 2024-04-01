@@ -1358,7 +1358,7 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 				Controller::gotoXY(80, 17);
 				cout << score << " Point";
 			}
-			bonusStart = time(nullptr);
+			bonusStart = time(nullptr); // reset bonus start time
 		}
 		return 1;
 	}
@@ -1382,7 +1382,7 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 				Controller::gotoXY(80, 17);
 				cout << score << " Point";
 			}
-			bonusStart = time(nullptr);
+			bonusStart = time(nullptr); // reset bonus start time
 		}
 		return 1;
 	}
@@ -1406,7 +1406,7 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 				Controller::gotoXY(80, 17);
 				cout << score << " Point";
 			}
-			bonusStart = time(nullptr);
+			bonusStart = time(nullptr); // reset bonus start time
 		}
 		return 1;
 	}
@@ -1430,7 +1430,7 @@ bool Game::checkMatching(pair<int, int> firstBlock, pair<int, int> secondBlock, 
 				Controller::gotoXY(80, 17);
 				cout << score << " Point";
 			}
-			bonusStart = time(nullptr);
+			bonusStart = time(nullptr); // reset bonus start time
 		}
 		return 1;
 	}
