@@ -37,9 +37,9 @@
 #define MOVE_SOUND 0
 #define ENTER_SOUND 1
 #define ERROR_SOUND 2
-#define WIN_SOUND 4
-#define BACKGROUND_SOUND 5
-#define EFFECT_SOUND 6
+#define WIN_SOUND 3
+#define BACKGROUND_SOUND 4
+#define EFFECT_SOUND 5
 using namespace std;
 
 struct Controller {
@@ -195,7 +195,7 @@ int Controller::getConsoleInput()
 
 void Controller::playSound(int i)
 {
-	static vector<const wchar_t*> soundFile{L"move.wav", L"enter.wav", L"error.wav", L"placed.wav", L"win.wav",  L"background.wav", L"effect.wav" }; // vector store names of the sound files
+	static vector<const wchar_t*> soundFile{L"move.wav", L"enter.wav", L"error.wav", L"win.wav",  L"background.wav", L"effect.wav" }; // vector store names of the sound files
 	PlaySoundW(soundFile[i], NULL, SND_FILENAME | SND_ASYNC); //play the sound with index i, allow the program to continue execution without waiting for the sound to finish playing
 }
 
